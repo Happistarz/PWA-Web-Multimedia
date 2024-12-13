@@ -37,10 +37,6 @@
 			content="audio, recording, editing, tool, web, app, scope"
 		/>
 
-		<!-- DOCUMENT META -->
-		<meta http-equiv="Expires" content="0" />
-		<meta http-equiv="Cache-Control" content="no-cache" />
-
 		<!-- FAVICON -->
 		<link
 			rel="shortcut icon"
@@ -50,87 +46,96 @@
 
 		<!-- PWA SETUP -->
 		<link rel="manifest" href="manifest.webmanifest" />
-
-		<script>
-			if ('serviceWorker' in navigator) {
-				window.addEventListener('load', () => {
-					navigator.serviceWorker
-						.register('/www/js/service-worker.js')
-						.then(reg => {
-							console.log('Service worker registered.', reg);
-						});
-				});
-			}
-		</script>
+		<script src="www/js/pwa.js" defer></script>
 
 		<title>Scope</title>
 
 		<!-- FONT AWESOME -->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-			media="all"
-		/>
+		<link rel="stylesheet" href="www/fontawesome/css/all.min.css" media="all" />
 
 		<!-- CSS -->
+		<link rel="stylesheet" href="www/css/reset.css" media="all" />
 		<link rel="stylesheet" href="www/css/style.css" media="all" />
 	</head>
 	<body>
 		<aside>
-			<!-- portrait mode not authorized -->
+			<!-- portrait mode not authorized in mobile devices -->
 			<div id="portrait">
 				<h1>Scope</h1>
 				<p>Please rotate your device to landscape mode to use Scope.</p>
 			</div>
 		</aside>
+
+		<!-- MAIN -->
 		<main>
+			<audio src=""></audio>
 			<header>
 				<nav>
-					<button
-						type="button"
-						id="play"
-						class="nav-btn"
-						onclick="play()"
-						title="Play button"
-					>
-						<i class="fas fa-play"></i>
+					<button type="button" id="play" class="nav-btn" title="Play button">
+						<i class="fas fa-play"></i> Play
 					</button>
-					<button
-						type="button"
-						id="pause"
-						onclick="pause()"
-						title="Pause button"
-					>
-						<i class="fas fa-pause"></i>
+					<button type="button" id="pause" title="Pause button">
+						<i class="fas fa-pause"></i> Pause
 					</button>
-					<button type="button" id="stop" onclick="stop()" title="Stop button">
-						<i class="fas fa-stop"></i>
+					<button type="button" id="stop" title="Stop button">
+						<i class="fas fa-stop"></i> Stop
 					</button>
 
-					<button
-						type="button"
-						id="record"
-						onclick="startRecording()"
-						title="Record button"
-					>
-						<i class="fas fa-microphone"></i>
+					<button type="button" id="record" title="Record button">
+						<i class="fas fa-microphone"></i> Record
 					</button>
 					<button
 						type="button"
 						id="stoprecord"
-						onclick="stopRecording()"
+						class="hidden"
 						title="Stop recording button"
 					>
-						<i class="fas fa-stop"></i>
+						<i class="fas fa-stop"></i> Stop
 					</button>
 				</nav>
 			</header>
-			<section id="channels"></section>
-			<section id="track"><canvas></canvas></section>
-			<footer></footer>
+			<section id="channels">
+				<div class="channel">
+					<h2>Voice</h2>
+				</div>
+				<div class="channel">
+					<h2>Chord</h2>
+				</div>
+				<div class="channel">
+					<h2>Kick</h2>
+				</div>
+				<div class="channel">
+					<h2>Snare</h2>
+				</div>
+				<div class="channel">
+					<h2>Pad</h2>
+				</div>
+				<div class="channel">
+					<h2>Bass</h2>
+				</div>
+			</section>
+			<section id="tracks">
+				<div class="track"></div>
+				<div class="track"></div>
+				<div class="track"></div>
+				<div class="track"></div>
+				<div class="track"></div>
+				<div class="track"></div>
+			</section>
+			<footer>
+				<button type="button" id="install">Install</button>
+
+				<!-- PROJECT INFO -->
+				<div id="info">
+					<!-- AUDIO LENGTH -->
+					<div id="length">
+						<p>Length: <span>0:00</span></p>
+					</div>
+				</div>
+			</footer>
 		</main>
 
 		<!-- JAVASCRIPT -->
-		<script src="www/js/app.js"></script>
+		<script type="module" src="www/js/app.js"></script>
 	</body>
 </html>

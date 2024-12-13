@@ -1,74 +1,118 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+html,
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+}
+
+#install {
+	background-color: rgba(0, 0, 0, 1);
+	border: none;
+	color: white;
+	font-size: 1em;
+	cursor: pointer;
+	height: 100%;
+	padding: 0 2em;
+}
+
+.hidden {
+	display: none;
 }
 
 main {
-  display: grid;
-  grid-template-areas: "header header"
-                       "channels track"
-                       "footer footer";
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: 20% 1fr 7%;
-  height: 100vh;
+	display: grid;
+	grid-template-areas:
+		'header header'
+		'channels track'
+		'footer footer';
+	grid-template-columns: 1fr 4fr;
+	grid-template-rows: 5rem 1fr 2rem;
+	height: 100vh;
 }
 
 header {
-  grid-area: header;
-  background-color: red;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1em;
+	grid-area: header;
+	background-color: red;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 1em;
+}
+
+header nav {
+	display: flex;
+	gap: 0.5em;
 }
 
 header nav > button {
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 1.5em;
-  cursor: pointer;
+	background-color: crimson;
+	border: none;
+	color: white;
+	font-size: 1em;
+	cursor: pointer;
+	border-radius: 1.625rem;
+	padding: 0.6em;
 }
 
 header nav > button:hover {
-  color: lightgray;
+	color: lightgray;
 }
 
 header nav > button:active {
-  color: gray;
+	color: gray;
 }
 
 header nav > button:focus {
-  outline: none;
+	outline: none;
 }
 
 #channels {
-  grid-area: channels;
-  background-color: green;
+	grid-area: channels;
+	background-color: green;
+	display: grid;
+	grid-auto-rows: 1fr;
 }
 
-#track {
-  grid-area: track;
-  background-color: yellow;
+.channel {
+	display: flex;
+	flex-direction: column;
+	background-color: lightgreen;
+	border: 1px solid black;
+}
+
+#tracks {
+	grid-area: track;
+	background-color: yellow;
+	display: grid;
+	grid-auto-rows: 1fr;
+}
+
+.track {
+	display: flex;
+	flex-direction: column;
+	background-color: lightyellow;
+	border: 1px solid black;
 }
 
 footer {
-  grid-area: footer;
-  background-color: blue;
+	grid-area: footer;
+	background-color: blue;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 1em;
 }
 
 #portrait {
-  display: none;
+	display: none;
 }
 
-@media screen and (orientation:portrait)
-{
-  /* we don't want portrait mode */
-  main {
-    display: none;
-  }
-  #portrait {
-    display: block;
-  }
+@media screen and (orientation: portrait) and (max-width: 600px) {
+	/* we don't want portrait mode */
+	main {
+		display: none;
+	}
+	#portrait {
+		display: block;
+	}
 }

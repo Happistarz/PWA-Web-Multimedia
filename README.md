@@ -4,8 +4,6 @@
 
 ## Fonctionnalités
 
-## Technologies
-
-## Installation
+## Améliorations possibles
 
 ## Utilisation

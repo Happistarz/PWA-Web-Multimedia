@@ -1,41 +1,103 @@
-import Track from './track.js';
-
-export default class TracksPlayer {
-	constructor(audioContext) {
-		this.audioContext = audioContext;
+class TracksPlayer {
+	constructor() {
 		this.tracks = [];
 		this.$tracks = document.querySelector('#tracks');
-		this.trackLength = 0;
 
-		this.$play = document.querySelector('#play');
-		this.$pause = document.querySelector('#pause');
-		this.$stop = document.querySelector('#stop');
+		document
+			.getElementById('play')
+			.addEventListener('click', () => this.play());
+		document
+			.getElementById('pause')
+			.addEventListener('click', () => this.pause());
+		document
+			.getElementById('stop')
+			.addEventListener('click', () => this.stop());
+
+		this.started = false;
+		this.highlighted = -1;
+
+		Tone.Transport.on('start', () => {
+			this.started = true;
+		});
+		Tone.Transport.on('stop', () => {
+			this.started = false;
+			this.highlighted = -1;
+			this.drawLoop(true);
+		});
+
+		this.sequence = new Tone.Sequence(
+			(time, note) => this.tick(time, note),
+			Array.from({ length: CELL_COUNT }, (_v, i) => i),
+		).start(0);
+
+		this.sequence.loop = true;
+		this.sequence.loopEnd = `${CELL_COUNT / 4}m`;
 	}
 
 	play() {
-		this.tracks.forEach(track => track.play());
+		Tone.Transport.start();
 	}
 
 	pause() {
-		this.tracks.forEach(track => track.pause());
+		Tone.Transport.pause();
 	}
 
 	stop() {
-		this.tracks.forEach(track => track.stop());
+		Tone.Transport.stop();
 	}
 
-	addTrack(audioContext, audioPath) {
-		fetch(audioPath)
-			.then(response => response.arrayBuffer())
-			.then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-			.then(audioBuffer => {
-				const track = new Track(audioContext, audioBuffer, audioPath);
-				this.tracks.push(track);
+	tick(time, note) {
+		if (!time) return;
 
-				const $track = document.createElement('div');
-				$track.innerHTML = audioPath;
-				this.$tracks.appendChild($track);
-				this.trackLength += audioBuffer.duration;
-			});
+		Tone.Draw.schedule(() => {
+			if (this.started) {
+				this.highlighted = note;
+				this.drawLoop();
+			}
+		}, time);
+
+		this.tracks.forEach((track, index) => {
+			if (track.notes[note]) {
+				try {
+					track.play(time);
+				} catch (error) {
+					console.error(error);
+				}
+			}
+		});
+	}
+
+	initTracksGrid() {
+		this.$tracks.innerHTML = `
+			${this.tracks
+				.map(
+					(track, x) => `
+				<div class="track">
+					${track.notes
+						.map(
+							(note, y) => `
+						<button type="button" class="cell" data-track="${x}" data-cell="${y}" title="cell ${x} ${y}"></button>
+					`,
+						)
+						.join('')}
+				</div>
+			`,
+				)
+				.join('')}
+			`;
+	}
+
+	drawLoop(clear = false) {
+		this.$tracks.querySelectorAll('.cell').forEach(cell => {
+			cell.classList.remove('highlight');
+		});
+
+		if (this.highlighted >= 0 && !clear) {
+			this.$tracks
+				.querySelectorAll(`.cell[data-cell="${this.highlighted}"]`)
+				.forEach(cell => {
+					cell.classList.add('highlight');
+				});
+		}
 	}
 }

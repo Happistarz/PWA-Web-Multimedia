@@ -14,10 +14,9 @@
 			name="keywords"
 			content="audio, recording, editing, tool, web, app, scope"
 		/>
-		<meta name="author" content="Scope" />
+		<meta name="author" content="Mathieu" />
 		<meta name="robots" content="index, follow" />
 		<meta name="revisit-after" content="7 days" />
-		<meta name="theme-color" content="#000000" />
 
 		<!-- OPEN GRAPH (SOCIAL NETWORKS) META -->
 		<meta name="og:title" content="Scope" />
@@ -51,11 +50,19 @@
 		<title>Scope</title>
 
 		<!-- FONT AWESOME -->
-		<link rel="stylesheet" href="www/fontawesome/css/all.min.css" media="all" />
+		<link
+			rel="stylesheet"
+			href="www/fontawesome/css/all.min.css"
+			media="all"
+			preload
+		/>
 
 		<!-- CSS -->
 		<link rel="stylesheet" href="www/css/reset.css" media="all" />
 		<link rel="stylesheet" href="www/css/style.css" media="all" />
+
+		<!-- JAVASCRIPT -->
+		<script src="http://unpkg.com/tone"></script>
 	</head>
 	<body>
 		<aside>
@@ -114,14 +121,7 @@
 					<h2>Bass</h2>
 				</div>
 			</section>
-			<section id="tracks">
-				<div class="track"></div>
-				<div class="track"></div>
-				<div class="track"></div>
-				<div class="track"></div>
-				<div class="track"></div>
-				<div class="track"></div>
-			</section>
+			<section id="tracks"></section>
 			<footer>
 				<button type="button" id="install">Install</button>
 
@@ -130,12 +130,21 @@
 					<!-- AUDIO LENGTH -->
 					<div id="length">
 						<p>Length: <span>0:00</span></p>
+						<p>BPM: <span>110</span></p>
 					</div>
 				</div>
 			</footer>
 		</main>
 
 		<!-- JAVASCRIPT -->
-		<script type="module" src="www/js/app.js"></script>
+		<script>
+			// constantes
+			const CELL_COUNT = 16;
+		</script>
+		<script src="www/js/audioRecorder.js" defer></script>
+		<script src="www/js/track.js" defer></script>
+		<script src="www/js/tracksPlayer.js" defer></script>
+		<script src="www/js/tracksController.js" defer></script>
+		<script src="www/js/app.js" defer></script>
 	</body>
 </html>

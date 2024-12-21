@@ -1,3 +1,7 @@
+:root {
+	--cell-count: 8;
+}
+
 html,
 body {
 	margin: 0;
@@ -84,14 +88,32 @@ header nav > button:focus {
 	grid-area: track;
 	background-color: yellow;
 	display: grid;
-	grid-auto-rows: 1fr;
+	grid-template-rows: repeat(6, 1fr);
 }
 
 .track {
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: repeat(var(--cell-count), 1fr);
+	grid-auto-rows: 1fr;
 	background-color: lightyellow;
 	border: 1px solid black;
+}
+
+.cell {
+	border: 1px solid black;
+	cursor: auto;
+}
+
+.cell.active {
+	background-color: black;
+}
+
+.cell.highlight {
+	background-color: lightcoral;
+}
+
+.cell.active.highlight {
+	background-color: darkred;
 }
 
 footer {

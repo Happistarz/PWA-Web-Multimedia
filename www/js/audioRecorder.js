@@ -1,4 +1,4 @@
-export default class AudioRecorder {
+class AudioRecorder {
 	constructor() {
 		this.stream = null;
 		this.mediaRecorder = null;

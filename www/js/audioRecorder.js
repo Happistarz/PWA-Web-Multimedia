@@ -3,6 +3,9 @@ class AudioRecorder {
 		this.stream = null;
 		this.mediaRecorder = null;
 		this.audioChunks = [];
+		this.voiceBuffer = null;
+		this.audioContext = Tone.context;
+
 		this.$startRecording = document.querySelector('#record');
 		this.$stopRecording = document.querySelector('#stoprecord');
 
@@ -48,7 +51,6 @@ class AudioRecorder {
 
 		this.audioChunks = [];
 		this.mediaRecorder.start();
-		console.log('Recording started');
 
 		this.$startRecording.classList.add('hidden');
 		this.$stopRecording.classList.remove('hidden');
@@ -58,16 +60,25 @@ class AudioRecorder {
 		if (!this.mediaRecorder) return;
 
 		this.mediaRecorder.stop();
-		console.log('Recording stopped');
 
 		this.$startRecording.classList.remove('hidden');
 		this.$stopRecording.classList.add('hidden');
 	}
 
 	handleStop() {
-		var blob = new Blob(this.audioChunks, { type: 'audio/webm' });
-		var audioURL = URL.createObjectURL(blob);
-		var audio = new Audio(audioURL);
-		audio.play();
+		const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
+		const reader = new FileReader();
+
+		reader.onloadend = async () => {
+			const arrayBuffer = reader.result;
+			try {
+				const buffer = await this.audioContext.decodeAudioData(arrayBuffer);
+				this.voiceBuffer = buffer;
+			} catch (error) {
+				console.error('Error decoding audio data:', error);
+			}
+		};
+
+		reader.readAsArrayBuffer(blob);
 	}
 }

@@ -2,6 +2,8 @@ document.documentElement.style.setProperty('--cell-count', CELL_COUNT);
 
 var trackController = new TrackController();
 
+trackController.addVoice();
+
 /**
  * KICK
  */

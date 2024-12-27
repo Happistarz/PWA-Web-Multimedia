@@ -28,13 +28,22 @@ class TracksPlayer {
 		this.sequence = new Tone.Sequence(
 			(time, note) => this.tick(time, note),
 			Array.from({ length: CELL_COUNT }, (_v, i) => i),
+			'8n',
 		).start(0);
-
 		this.sequence.loop = true;
 		this.sequence.loopEnd = `${CELL_COUNT / 4}m`;
 	}
 
 	play() {
+		if (trackController.audioRecorder.voiceBuffer) {
+			let voice = new Tone.Player({
+				url: trackController.audioRecorder.voiceBuffer,
+				loop: true,
+				loopStart: 0,
+				loopEnd: `${CELL_COUNT / 4}m`,
+			}).toDestination();
+			voice.start();
+		}
 		Tone.Transport.start();
 	}
 

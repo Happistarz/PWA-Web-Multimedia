@@ -53,7 +53,7 @@
 		<link
 			rel="stylesheet"
 			href="www/fontawesome/css/all.min.css"
-			media="all"
+			media="print"
 			preload
 		/>
 
@@ -94,7 +94,7 @@
 					<button
 						type="button"
 						id="stoprecord"
-						class="hidden"
+						class="hidden record"
 						title="Stop recording button"
 					>
 						<i class="fas fa-stop"></i> Stop
@@ -127,11 +127,9 @@
 
 				<!-- PROJECT INFO -->
 				<div id="info">
-					<!-- AUDIO LENGTH -->
-					<div id="length">
-						<p>Length: <span>0:00</span></p>
-						<p>BPM: <span>110</span></p>
-					</div>
+					<p>Length: <span id="length">0:00</span></p>
+					<hr />
+					<p>BPM: <span id="bpm">110</span></p>
 				</div>
 			</footer>
 		</main>
@@ -140,9 +138,22 @@
 		<script>
 			// constantes
 			const CELL_COUNT = 16;
+
+			// instruments
+			class Track {
+				constructor(instrument, playFunction) {
+					this.instrument = instrument;
+					this.playFunction = playFunction;
+
+					this.notes = Array(CELL_COUNT).fill(false);
+				}
+
+				play() {
+					this.playFunction();
+				}
+			}
 		</script>
 		<script src="www/js/audioRecorder.js" defer></script>
-		<script src="www/js/track.js" defer></script>
 		<script src="www/js/tracksPlayer.js" defer></script>
 		<script src="www/js/tracksController.js" defer></script>
 		<script src="www/js/app.js" defer></script>

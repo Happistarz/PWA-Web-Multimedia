@@ -1,9 +1,11 @@
 class TrackController {
 	constructor() {
-		this.tracksPlayer = new TracksPlayer();
 		this.audioRecorder = new AudioRecorder();
+		this.audioRecorder.createStream();
+		this.tracksPlayer = new TracksPlayer();
 
 		Tone.Transport.bpm.value = 120;
+		document.getElementById('bpm').value = 120;
 	}
 
 	addTrack(track) {
@@ -27,12 +29,19 @@ class TrackController {
 
 		let active = this.tracksPlayer.tracks[track].notes[note];
 
-		if (active) {
-			this.tracksPlayer.tracks[track].notes[note] = false;
-			cell.classList.remove('active');
-		} else {
-			this.tracksPlayer.tracks[track].notes[note] = true;
-			cell.classList.add('active');
-		}
+		if (active) cell.classList.remove('active');
+		else cell.classList.add('active');
+
+		this.tracksPlayer.tracks[track].notes[note] = !active;
+	}
+
+	addVoice() {
+		// add the audioRecorder.voiceBuffer to the tracksPlayer
+		// let voice = new Tone.Player(this.audioRecorder.voiceBuffer).toDestination();
+		// this.addTrack(
+		// 	new Track(null, time => {
+		// 		voice.start(time);
+		// 	}),
+		// );
 	}
 }

@@ -9,6 +9,7 @@ const CACHED_FILES = [
 	`${BASE}/www/icons/favicon.ico`,
 	`${BASE}/www/fontawesome/css/all.min.css`,
 	`${BASE}/www/js/pwa.js`,
+	'https://unpkg.com/tone',
 ];
 
 self.addEventListener('fetch', event => {

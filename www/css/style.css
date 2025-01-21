@@ -2,7 +2,7 @@
 
 :root {
 	--cell-count: 8;
-	--track-count: 6;
+	--track-count: 4;
 
 	--primary-color: #2e2c2f;
 	--secondary-color: #475b63;
@@ -45,8 +45,8 @@ main {
 		'channels track'
 		'footer footer';
 	grid-template-columns: 1fr 4fr;
-	grid-template-rows: 5rem 1fr 2rem;
-	height: 100vh;
+	grid-template-rows: 15% 1fr 7%;
+	height: 100dvh;
 }
 
 header {
@@ -55,12 +55,12 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 0 1em;
 }
 
 header nav {
 	display: flex;
-	gap: 0.5em;
+	height: 100%;
+	width: 100%;
 }
 
 header nav > button {
@@ -70,7 +70,7 @@ header nav > button {
 	color: white;
 	font-size: 1em;
 	cursor: pointer;
-	padding: 0.6em;
+	padding: 0.6em 1em;
 }
 
 header nav > button.record {
@@ -99,9 +99,15 @@ header nav > button:focus {
 .channel {
 	font-family: var(--font-family);
 	display: flex;
-	flex-direction: column;
 	background-color: var(--tertiary-color);
 	border: 1px solid black;
+	align-items: center;
+	justify-content: center;
+}
+
+.channel h2 {
+	color: white;
+	font-size: 1.5em;
 }
 
 #tracks {

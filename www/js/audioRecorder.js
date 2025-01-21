@@ -23,7 +23,7 @@ class AudioRecorder {
 		navigator.mediaDevices
 			.getUserMedia(constraints)
 			.then(_stream => {
-				var mediaControl = document.querySelector('audio');
+				var mediaControl = document.getElementById('voiceStream');
 
 				if ('srcObject' in mediaControl) {
 					mediaControl.srcObject = _stream;

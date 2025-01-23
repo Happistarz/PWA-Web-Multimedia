@@ -1,4 +1,21 @@
-const VERSION = 'V2';
+/**
+ * Service Worker script for caching and offline support.
+ *
+ * @constant {string} VERSION - The version of the cache.
+ * @constant {string} BASE - The base URL of the site.
+ * @constant {Array<string>} CACHED_FILES - List of files to cache during installation.
+ *
+ * @event fetch - Intercepts fetch requests to serve cached files or fetch from the network.
+ * @param {FetchEvent} event - The fetch event.
+ *
+ * @event install - Handles the service worker installation and caches specified files.
+ * @param {ExtendableEvent} event - The install event.
+ *
+ * @event activate - Handles the service worker activation and cleans up old caches.
+ * @param {ExtendableEvent} event - The activate event.
+ */
+
+const VERSION = 'V1';
 
 const BASE = location.protocol + '//' + location.host;
 

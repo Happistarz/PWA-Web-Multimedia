@@ -1,4 +1,10 @@
 class TrackController {
+	/**
+	 * Initializes a new instance of the class.
+	 * Sets up the audio recorder and tracks player, and initializes the BPM (beats per minute) value.
+	 *
+	 * @constructor
+	 */
 	constructor() {
 		this.audioRecorder = new AudioRecorder();
 		this.audioRecorder.createStream();
@@ -8,10 +14,19 @@ class TrackController {
 		document.getElementById('bpm').value = 120;
 	}
 
+	/**
+	 * Adds a track to the tracks player.
+	 *
+	 * @param {Object} track - The track object to be added.
+	 */
 	addTrack(track) {
 		this.tracksPlayer.tracks.push(track);
 	}
 
+	/**
+	 * Initializes the tracks controller.
+	 * Sets up the tracks grid and attaches click event listeners to each cell.
+	 */
 	init() {
 		this.tracksPlayer.initTracksGrid();
 
@@ -22,6 +37,12 @@ class TrackController {
 			);
 	}
 
+	/**
+	 * Handles the click event on a cell in the track grid.
+	 * Toggles the 'active' class on the clicked cell and updates the corresponding note's active state.
+	 *
+	 * @param {Event} e - The click event object.
+	 */
 	cellClickEvent(e) {
 		const cell = e.target;
 		const track = cell.getAttribute('data-track');
@@ -33,15 +54,5 @@ class TrackController {
 		else cell.classList.add('active');
 
 		this.tracksPlayer.tracks[track].notes[note] = !active;
-	}
-
-	addVoice() {
-		// add the audioRecorder.voiceBuffer to the tracksPlayer
-		// let voice = new Tone.Player(this.audioRecorder.voiceBuffer).toDestination();
-		// this.addTrack(
-		// 	new Track(null, time => {
-		// 		voice.start(time);
-		// 	}),
-		// );
 	}
 }

@@ -1,4 +1,19 @@
 /**
+ * Checks if the current URL indicates that the app is in PWA mode.
+ * If in PWA mode, removes the install element from the DOM.
+ */
+function PWAmode() {
+	const url = new URL(window.location.href);
+	const isPWA = url.searchParams.get('home') === 'true';
+
+	console.log('PWA mode:', isPWA);
+
+	if (isPWA) document.getElementById('install').remove();
+}
+
+PWAmode();
+
+/**
  * Handles the installation prompt for a Progressive Web App (PWA).
  *
  * This function sets up event listeners to manage the installation prompt
@@ -8,7 +23,6 @@
  *
  * @function handleInstallPrompt
  */
-
 function handleInstallPrompt() {
 	let installPromptEvent;
 
